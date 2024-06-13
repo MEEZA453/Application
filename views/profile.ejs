@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-zinc-900 max-sm:w-screen">
+    <form method="post" action="/logout"></form>
+    <a  href='/logout'class="bg-red-800 right-3 top-2 absolute p-2 h-fit w-fit rounded-md max-sm:text-sm">Log out</a>
+
+  <div class=" max-sm:w-screen overflow-hidden max-sm:w-full w-1/2 p-20 max-sm:p-5 mt-20 ml-20 max-sm:ml-0">
+    <div class="flex gap-2">
+<div class = 'w-[30px] h-[30px]  rounded-md'><img class=" h-full w-full object-cover  rounded-md " src="/images/<%=user.profilepic%>" alt=""></div>
+        <h1 class = 'text-2xl max-sm:text-sm text-[#dadada] maxw-fit'>Hello! <%=user.name%> you can create a new post 😕</h1>
+        </div>
+    <form method="post" action="/post">
+        <textarea class=" max-sm:pl-2  bg-transparent max-sm:w-full h-[20vh] border-2 border-zinc-700 resize-none mt-5 w-2/3
+    text-[#dadada] rounded-md " placeholder="Whats on your mind?" name ='content' ></textarea>
+    <button class=" max-sm:text-sm bg-blue-700 p-2 rounded-md block text-white mt-5"> create new Post</button>
+    </form>
+    <div>
+
+        <div class=" rounded-md  mt-10">
+
+<%user.posts.forEach((post)=>{%>
+                <div class="border-2 border-zinc-700 rounded-md pt-5 pb-5 bg-zinc-800  mt-5">
+                 <a class="text-blue-500 pt-5 pl-5   ">@<%=user.name%></a>
+        <p class="content mt-5 ml-10 mb-5 text-[#dadada] "><%=post.content%></p>
+        <small class="block ml-10 text-white"><%=post.likes.length%> Likes</small>
+        <div class="flex gap-[25vw]">
+
+            <div>
+                
+                <a href="/likes/<%=post._id%>"   class="text-blue-500  text-sm m-5 ml-10"><%=post.likes.indexOf(user.id)?'Like' : 'Unlike'%></a>
+            <a href="/profile/edit/<%=post._id%>" class="text-gray-500  text-sm m-5">edit</a>
+        </div>
+    <a href="/delete/<%=post.id%>"  class="text-red-700 text-sm inline" >delete</a>
+    </div>
+    </div>
+           <%})%>   
+
+
+    </div>
+</div>
+</div>  
+    
+</body>
+</html>
